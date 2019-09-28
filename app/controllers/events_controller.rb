@@ -7,7 +7,10 @@ class EventsController < ApplicationController
         #    @events = User.find(params[:user_id]).events
          # else
         @events = Event.order_by_date
-    #end
+        respond_to do |f|
+            f.html {render :index}
+            f.json {render json: @events}
+        end
     end
 
     def new
@@ -28,11 +31,14 @@ class EventsController < ApplicationController
     end
 
     def show
-       # @event = Event.find_by(id: params[:id])
+        #@event = Event.find_by(id: params[:id])
         @attend = Attend.new
         @attend.build_user
         @user = User.find(session[:user_id])
-
+        # respond_to do |f|
+        #     f.html {render :index}
+        #     f.json {render json: @event}
+        # end
         #@attends = Attend.all
 
     end
