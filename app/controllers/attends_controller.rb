@@ -24,6 +24,10 @@ class AttendsController < ApplicationController
 
     def create
         @event = Event.find(attends_params[:event_id])
+           # respond_to do |f|
+        #     f.html {render :index}
+        #     f.json {render json: @event}
+        # end
         @user = User.find(session[:user_id])
         @attend = Attend.create(attends_params)
         
