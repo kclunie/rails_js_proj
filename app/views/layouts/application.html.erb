@@ -6,7 +6,7 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application'%>
+    <%= javascript_include_tag 'application', 'events'%>
   </head>
 
   <body>
@@ -20,5 +20,14 @@
 <% end %>
 
     <%= yield %>
+
+    <button id='events-data'>Get Events</button>
+			<div id='ajax-events'>[events...]</div>
+			<br>
+			<br>
+
+			<button id='ajax-new-event'>New Event</button>
+      <div id="new-event-form-div">[form]</div>
+      
   </body>
 </html>
