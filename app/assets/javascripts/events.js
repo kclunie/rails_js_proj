@@ -1,3 +1,13 @@
+document.addEventListener('DOMContentLoaded', init)
+function init(){
+   console.log("hello")
+   fetch('http://localhost:3000')
+   .then(res => res.json())
+   .then(res => console.log(res))
+}
+
+
+
 
 // A $( document ).ready() block.
 $( document ).ready(function() {
