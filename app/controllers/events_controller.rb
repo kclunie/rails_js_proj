@@ -20,7 +20,11 @@ class EventsController < ApplicationController
     def create
         @event = Event.new(event_params)
         if @event.save
-         redirect_to events_path
+            respond_to do |f|
+				f.html {redirect_to events_path}
+				f.json {render json: @events}
+			end
+         #redirect_to events_path
         else
          render :new
         end 
@@ -31,15 +35,15 @@ class EventsController < ApplicationController
     end
 
     def show
-        # @event = Event.find_by(id: params[:id])
-        #     respond_to do |f|
-        #      f.html {render :index}
-        #      f.json {render json: @event}
-        #  end
         @attend = Attend.new
         @attend.build_user
         @user = User.find(session[:user_id])
-    
+
+        @event = Event.find_by(id: params[:id])
+        respond_to do |f|
+         f.html {render :show}
+         f.json {render json: @event}
+   end
         #@attends = Attend.all
 
     end

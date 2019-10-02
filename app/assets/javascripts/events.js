@@ -48,8 +48,24 @@ function getEvents() {
 			let newEventForm = Event.newEventForm()
 			// $('div#new-post-form-div')
 			document.querySelector('div#new-event-form-div').innerHTML = newEventForm
+			handlePostRequest()
 		})
 	}	
+
+	function handlePostRequest(){
+		let event = document.querySelector('#event-name').value;
+		fetch('http://localhost:3000/events', {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"Accept": "application/json"
+			},
+			body: JSON.stringify({name : event })
+			.then(resonse => resonse.json())
+			.then(events => {render(events)})
+		})
+		.catch(error => console.log(error))
+	}
 
 class Event {
 	constructor(obj) {
