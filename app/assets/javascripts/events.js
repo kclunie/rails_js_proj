@@ -12,10 +12,10 @@ function init(){
 // A $( document ).ready() block.
 $( document ).ready(function() {
     console.log( "ready!" );
-    listenForClick()
+	listenForClick()
+	listenForNewEventFormClick()
 });
 
-const faf = 12
 
 function listenForClick() {
 	$('button#events-data').on('click', function (event) {
@@ -28,17 +28,28 @@ function getEvents() {
 	$.ajax({
 		url: 'http://localhost:3000/events',
 		method: 'get',
-		dataType: 'json',
-		success: function (data) {
+		dataType: 'json'
+	}).done(function (data){
+
 			console.log("the data is: ", data)
 			data.map(event => {
 				const newEvent = new Event(event)
 				const newEventHtml = newEvent.eventHTML()
+				
 				document.getElementById('ajax-events').innerHTML += newEventHtml
 			})
-		}
-	})
-}
+		})
+	}
+
+
+	function listenForNewEventFormClick() {
+		$('button#ajax-new-event').on('click', function (event) {
+			event.preventDefault()
+			let newEventForm = Event.newEventForm()
+			// $('div#new-post-form-div')
+			document.querySelector('div#new-event-form-div').innerHTML = newEventForm
+		})
+	}	
 
 class Event {
 	constructor(obj) {
@@ -46,17 +57,18 @@ class Event {
 		this.name = obj.name
 		this.date = obj.date
         this.location = obj.location
-        this.details = obj.details
+		this.details = obj.details
+		this.attends = obj.attends
 	}
 
 	static newEventForm() {
 		return (`
 		<strong>New event form</strong>
 			<form>
-				<input id='event-name' type='text' name='name'></input><br>
-                <input type='text' name='date'></input><br>
-                <input type='text' name='location'></input><br>
-                <input type='text' name='details'></input><br>
+				Name: <input id='event-name' type='text' name='name'></input><br>
+                Date: <input type='text' name='date'></input><br>
+                Location: <input type='text' name='location'></input><br>
+                Details: <input type='text' name='details'></input><br>
 				<input type='submit' />
 			</form>
 		`)
@@ -76,7 +88,7 @@ Event.prototype.eventHTML = function () {
             <p>${this.date}</p>
             <p>${this.location}</p>
             <p>${this.details}</p>
-			<p>${eventAttends}</p>
+			<p>Attendees: ${eventAttends}</p>
 		</div>
 	`)
 }
