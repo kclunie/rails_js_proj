@@ -48,9 +48,19 @@ function getEvents() {
 			let newEventForm = Event.newEventForm()
 			// $('div#new-post-form-div')
 			document.querySelector('div#new-event-form-div').innerHTML = newEventForm
-			handlePostRequest()
+
+			let eventForm = document.getElementById('submit-event-form')
+			 eventForm.addEventListener('submit', createEvent(event))
+			//handlePostRequest()
 		})
 	}	
+
+	function createEvent(event){
+		//$('button#submit-event-form').on('click', function (event) {
+			event.preventDefault()
+			console.log('event being created')
+
+		}
 
 	function handlePostRequest(){
 		let event = document.querySelector('#event-name').value;
@@ -75,12 +85,13 @@ class Event {
         this.location = obj.location
 		this.details = obj.details
 		this.attends = obj.attends
+		//this.listenForSubmitNewForm()
 	}
 
 	static newEventForm() {
 		return (`
 		<strong>New event form</strong>
-			<form>
+			<form id='submit-event-form'>
 				Name: <input id='event-name' type='text' name='name'></input><br>
                 Date: <input type='text' name='date'></input><br>
                 Location: <input type='text' name='location'></input><br>
@@ -89,6 +100,20 @@ class Event {
 			</form>
 		`)
 	}
+
+// 	listenForSubmitNewForm(){
+// 		//let event = document.querySelector('#event-name')
+// 		this.eventForm = document.getElementById('submit-event-form')
+// 		this.eventForm.addEventListener('submit', this.createEvent)
+// }
+
+
+// 	createEvent(){
+// 		//$('button#submit-event-form').on('click', function (event) {
+// 		//	event.preventDefault()
+// 			console.log('event being created')
+
+// 		}
 }
 
 Event.prototype.eventHTML = function () {
