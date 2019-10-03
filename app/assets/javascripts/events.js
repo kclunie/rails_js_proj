@@ -101,19 +101,19 @@ class Event {
 		`)
 	}
 
-// 	listenForSubmitNewForm(){
-// 		//let event = document.querySelector('#event-name')
+//  	listenForSubmitNewForm(){
+// 		this.newEventBody = document.getElementById('event-name')
 // 		this.eventForm = document.getElementById('submit-event-form')
-// 		this.eventForm.addEventListener('submit', this.createEvent)
-// }
+// 		this.eventForm.addEventListener('submit', this.createEvent.bind(this))
+//  }
 
 
-// 	createEvent(){
-// 		//$('button#submit-event-form').on('click', function (event) {
-// 		//	event.preventDefault()
-// 			console.log('event being created')
-
-// 		}
+//  	createEvent(e){
+// 		 console.log(this)
+// 		e.preventDefault()
+// 		console.log(this.newEventBody.value)
+// 		 }
+		 
 }
 
 Event.prototype.eventHTML = function () {
