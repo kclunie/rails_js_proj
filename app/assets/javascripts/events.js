@@ -13,7 +13,9 @@ function init(){
 $( document ).ready(function() {
     console.log( "ready!" );
 	listenForClick()
+	listenForShowClick()
 	listenForNewEventFormClick()
+	listenForSubmitNewForm()
 });
 
 
@@ -23,6 +25,8 @@ function listenForClick() {
 		getEvents()
 	})
 }
+
+
 
 function getEvents() {
 	$.ajax({
@@ -49,11 +53,33 @@ function getEvents() {
 			// $('div#new-post-form-div')
 			document.querySelector('div#new-event-form-div').innerHTML = newEventForm
 
-			let eventForm = document.getElementById('submit-event-form')
-			 eventForm.addEventListener('submit', createEvent(event))
+			//let eventForm = document.getElementById('submit-event-form')
+			 //eventForm.addEventListener('submit', createEvent(event))
 			//handlePostRequest()
 		})
 	}	
+
+	function listenForSubmitNewForm() {
+		$('button#submit-event-form').on('submit', function (event) {
+			event.preventDefault()
+			createEvent(event)
+		})
+	}	
+
+
+//  	function listenForSubmitNewForm(){
+// 		this.newEventBody = document.getElementById('event-name')
+// 		this.eventForm = document.getElementById('submit-event-form')
+// 		this.eventForm.addEventListener('submit', this.createEvent)
+//  }
+
+
+//  	createEvent(e){
+// 		 console.log(this)
+// 		e.preventDefault()
+// 		console.log(this.newEventBody.value)
+// 		 }
+
 
 	function createEvent(event){
 		//$('button#submit-event-form').on('click', function (event) {
@@ -76,6 +102,7 @@ function getEvents() {
 		})
 		.catch(error => console.log(error))
 	}
+
 
 class Event {
 	constructor(obj) {
@@ -130,6 +157,15 @@ Event.prototype.eventHTML = function () {
             <p>${this.location}</p>
             <p>${this.details}</p>
 			<p>Attendees: ${eventAttends}</p>
+			<a class='see-event' href="http://localhost:3000/events/${this.id}">See Event</a>
 		</div>
 	`)
+}
+
+function listenForShowClick(){
+	$('div.post a.see-event').on('click', function(event){
+	event.preventDefault();
+	console.log("yooooo");
+	alert('yo');
+	});
 }
