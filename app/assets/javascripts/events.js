@@ -45,6 +45,18 @@ function getEvents() {
 		})
 	}
 
+	function getEvent(){
+		$.ajax({
+			url:`http://localhost:3000/events/${id}`,
+			method: 'get',
+			dataType: 'json'
+		
+		}).done(function(data){
+			//just fine the event whose id matches
+			data.filter(id => id = params[id])
+		})
+	}
+
 
 	function listenForNewEventFormClick() {
 		$('button#ajax-new-event').on('click', function (event) {
@@ -162,15 +174,31 @@ Event.prototype.eventHTML = function () {
 	`)
 }
 
+function listenForShowClick2(){
+	$('#see-event').on('click', function(event){
+	event.preventDefault();
+	console.log("here");
+	console.log(event.target.value);
+	})
+}
+
 function listenForShowClick(){
 	$('.event-show-link').on('click', function(event){
 	event.preventDefault();
-	var eventPath = event.target.pathname;
-	
-	$.getJSON(eventPath)
+	var eventLink = event.target;
+
+	$.getJSON(eventLink.pathname)
 	.done(function(data){
-		console.log(data);
+		var result = "";
+		 var id = data.id;
+		 var event = $("div[id|='" + id + "']");
+
+		 result += "<p>" + data.name + "</p>";
+		 event.find("h1").after(result);
+
+		console.log(data.id);
 		console.log("yay")
+		//document.getElementById('whatever').innerHTML = data.details
 	})
 	.fail(function(data){
 	console.log("Error: ");
