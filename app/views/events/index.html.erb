@@ -3,7 +3,7 @@
 <h1>Upcoming Events</h1>
 <% @events.each do |f| %>
    
-    <li><%= link_to "#{f.name}", event_path(f) %></li>
+    <li><%= link_to "#{f.name}", event_path(f), class: "event-show-link" %></li>
     <li><%= f.date %></li>
     <li><%= f.location %></li>
     <li><%= link_to "RSVPs", event_attends_path(f) %></li>

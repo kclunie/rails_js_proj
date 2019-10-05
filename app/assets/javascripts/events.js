@@ -157,15 +157,24 @@ Event.prototype.eventHTML = function () {
             <p>${this.location}</p>
             <p>${this.details}</p>
 			<p>Attendees: ${eventAttends}</p>
-			<a class='see-event' href="http://localhost:3000/events/${this.id}">See Event</a>
+			<a id='see-event' href="http://localhost:3000/events/${this.id}">See Event</a>
 		</div>
 	`)
 }
 
 function listenForShowClick(){
-	$('div.post a.see-event').on('click', function(event){
+	$('.event-show-link').on('click', function(event){
 	event.preventDefault();
-	console.log("yooooo");
-	alert('yo');
+	var eventPath = event.target.pathname;
+	
+	$.getJSON(eventPath)
+	.done(function(data){
+		console.log(data);
+		console.log("yay")
+	})
+	.fail(function(data){
+	console.log("Error: ");
+	console.log(data);
+	});
 	});
 }
