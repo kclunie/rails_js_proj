@@ -186,19 +186,23 @@ function listenForShowClick(){
 	$('.event-show-link').on('click', function(event){
 	event.preventDefault();
 	var eventLink = event.target;
-
+//debugger
 	$.getJSON(eventLink.pathname)
 	.done(function(data){
 		var result = "";
 		 var id = data.id;
 		 var event = $("div[id|='" + id + "']");
+		// var event = $(`div${id}`)
+		//var event = $("div[id|=${id}]");
 
-		 result += "<p>" + data.name + "</p>";
-		 event.find("h1").after(result);
+		 result += "<p>" + data.details + "</p>";
+		 //event.find("h1").after(result);
+		 event.append(result)
 
 		console.log(data.id);
 		console.log("yay")
 		//document.getElementById('whatever').innerHTML = data.details
+		//debugger
 	})
 	.fail(function(data){
 	console.log("Error: ");
