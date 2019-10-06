@@ -38,8 +38,8 @@ function getEvents() {
 			console.log("the data is: ", data)
 			data.map(event => {
 				const newEvent = new Event(event)
+				events.push(newEvent)
 				const newEventHtml = newEvent.eventHTML()
-				
 				document.getElementById('ajax-events').innerHTML += newEventHtml
 			})
 		})
@@ -115,6 +115,7 @@ function getEvents() {
 		.catch(error => console.log(error))
 	}
 
+	const events = []
 
 class Event {
 	constructor(obj) {
