@@ -6,16 +6,16 @@ function init(){
    .then(res => console.log(res))
 }
 
-//testing123
-
-
 // A $( document ).ready() block.
 $( document ).ready(function() {
     console.log( "ready!" );
 	listenForClick()
 	listenForShowClick()
-	listenForNewEventFormClick()
+	//listenForNewEventFormClick()
 	listenForSubmitNewForm()
+	//listenForNewEventForm2()
+	//listenForSubmitNewForm3()
+	
 });
 
 
@@ -58,25 +58,32 @@ function getEvents() {
 	}
 
 
-	function listenForNewEventFormClick() {
-		$('button#ajax-new-event').on('click', function (event) {
-			event.preventDefault()
-			let newEventForm = Event.newEventForm()
-			// $('div#new-post-form-div')
-			document.querySelector('div#new-event-form-div').innerHTML = newEventForm
+	// function listenForNewEventFormClick() {
+	// 	$('button#ajax-new-event').on('click', function (event) {
+	// 		event.preventDefault()
+	// 		let newEventForm = Event.newEventForm()
+	// 		// $('div#new-post-form-div')
+	// 		document.querySelector('div#new-event-form-div').innerHTML = newEventForm
+			
+	// 		//handlePostRequest()
+	// 	})
+	// }	
 
-			//let eventForm = document.getElementById('submit-event-form')
-			 //eventForm.addEventListener('submit', createEvent(event))
-			//handlePostRequest()
-		})
-	}	
+	// function listenForSubmitNewForm3(){
+	// 	let eventForm = document.querySelector('form#submit-event-form')
+	// 	eventForm.addEventListener('submit', createEvent(event))
+	// }
 
-	function listenForSubmitNewForm() {
-		$('button#submit-event-form').on('submit', function (event) {
-			event.preventDefault()
-			createEvent(event)
-		})
-	}	
+	// function listenForSubmitNewForm2() {
+	// 	$('form#submit-event-form').on('submit', function (event) {
+	// 		event.preventDefault()
+	// 		console.log('event being createddd')
+	// 		createEvent(event)
+	// 		console.log('event being createdeee')
+	// 		// event.preventDefault()
+	// 		// console.log('event being created')
+	// 	})
+	// }	
 
 
 //  	function listenForSubmitNewForm(){
@@ -96,7 +103,7 @@ function getEvents() {
 	function createEvent(event){
 		//$('button#submit-event-form').on('click', function (event) {
 			event.preventDefault()
-			console.log('event being created')
+			console.log('event being createdyo')
 
 		}
 
@@ -127,6 +134,23 @@ class Event {
 		this.attends = obj.attends
 		//this.listenForSubmitNewForm()
 	}
+
+	// listenForSubmitNewForm(){
+	// 	this.newEventBody = document.getElementById('event-name')
+	// 	//newEventForm = document.getElementById('form#submit-event-form')
+	// 	//newEventForm = document.getElementById('form#submit-event-form')
+	// 	//newEventForm = document.querySelector('div#new-event-form-div')
+	// 	this.newEventForm = document.querySelector('form#submit-event-form')
+	// 	this.newEventForm.addEventListener('submit', this.createNote2.bind(this))
+	// 	.catch(error => console.log(error))
+	// 	}
+		
+	// 	createNote2(event){
+	// 		console.log(this)
+	// 	event.preventDefault()
+	// 	console.log('creating event2')
+	// 	console.log(this.newEventBody.value)
+	// 	}
 
 	static newEventForm() {
 		return (`
@@ -211,3 +235,58 @@ function listenForShowClick(){
 	});
 	});
 }
+
+function listenForSubmitNewForm(){
+newEventBody = document.getElementById('event-name')
+//newEventForm = document.getElementById('form#submit-event-form')
+//newEventForm = document.getElementById('form#submit-event-form')
+//newEventForm = document.querySelector('div#new-event-form-div')
+newEventForm = document.querySelector('form#submit-event-form')
+newEventForm.addEventListener('submit', this.createEvent2.bind(this))
+// newEventForm.addEventListener('submit', function(event){
+// 	event.preventDefault()
+// 	console.log('creating event2a')
+// 	console.log(this.newEventBody.value)
+// })
+}
+
+function createEvent2(event){
+	console.log(this)
+event.preventDefault()
+console.log('creating event2')
+console.log(this.newEventBody.value)
+//const newEvent = new Event(event)
+//const newEvent = new Event(this.newEventBody.value)
+const value = this.newEventBody.value
+//console.log(newEvent)
+this.createEvent(value).then(event => {console.log(event)})
+}
+
+const baseUrl = 'http://localhost:3000/events'
+
+function createEvent(value){
+	console.log("blaaaa")
+	console.log(value)
+	const event = {
+		body: value,
+	}
+	return fetch(baseUrl, {
+	method: 'POST',
+	headers: {
+		"Content-Type": "application/json",
+	},
+	body: JSON.stringify({ event }),
+	}).then(res => res.json())
+}
+
+
+	// function listenForNewEventFormClick() {
+	// 	$('button#ajax-new-event').on('click', function (event) {
+	// 		event.preventDefault()
+	// 		let newEventForm = Event.newEventForm()
+	// 		// $('div#new-post-form-div')
+	// 		document.querySelector('div#new-event-form-div').innerHTML = newEventForm
+			
+	// 		//handlePostRequest()
+	// 	})
+	// }
