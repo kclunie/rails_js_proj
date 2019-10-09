@@ -264,7 +264,7 @@ this.createEvent(value).then(event => {console.log(event)})
 
 const baseUrl = 'http://localhost:3000/events'
 
-function createEvent(value){
+function createEventt(value){
 	console.log("blaaaa")
 	console.log(value)
 	const event = {
@@ -279,6 +279,58 @@ function createEvent(value){
 	}).then(res => res.json())
 }
 
+
+// let formData = {
+// 	name: name,
+// 	//dogBreed: "Poodle"
+//   };
+   
+//   let configObj = {
+// 	method: "POST",
+// 	headers: {
+// 	  "Content-Type": "application/json",
+// 	  "Accept": "application/json"
+// 	},
+// 	body: JSON.stringify(formData)
+//   };
+   
+//   fetch("http://localhost:3000/events", configObj)
+// 	.then(function(response) {
+// 	  return response.json();
+// 	})
+// 	.then(function(object) {
+// 	  console.log(object);
+// 	});
+
+
+	function createEvent( value ) {
+		console.log("jjjjjjj")
+		console.log(value)
+		let formData = {
+			name: value,
+			//dogBreed: "Poodle"
+		  };
+		return fetch( 'http://localhost:3000/events', {
+			method: "POST",
+			headers: {
+			  "Content-Type": "application/json",
+			  "Accept": "application/json"
+			},
+			body: JSON.stringify( {
+			  formData
+			} )
+		  } )
+		  .then( function ( response ) {
+			return response.json()
+		  } )
+		  .then( function ( object ) {
+			document.body.innerHTML = object[ "id" ]
+			console.log(object)
+		  } )
+		//   .catch( function ( error ) {
+		// 	document.body.innerHTML = error.message
+		//   } )
+	  }
 
 	// function listenForNewEventFormClick() {
 	// 	$('button#ajax-new-event').on('click', function (event) {
