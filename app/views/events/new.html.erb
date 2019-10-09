@@ -2,6 +2,7 @@
 
 <%= render partial: "layouts/errors", locals: {object: @event} %>
 
+<div id="new-event-container">
 <%= form_for @event do |f| %>
 
     <%= f.label :name %>
@@ -19,3 +20,4 @@
     <%= f.submit 'Create Event' %>
 
     <% end %>
+    </div>

@@ -1,10 +1,10 @@
-document.addEventListener('DOMContentLoaded', init)
-function init(){
-   console.log("hello")
-   fetch('http://localhost:3000')
-   .then(res => res.json())
-   .then(res => console.log(res))
-}
+// document.addEventListener('DOMContentLoaded', init)
+// function init(){
+//    console.log("hello")
+//    fetch('http://localhost:3000')
+//    .then(res => res.json())
+//    .then(res => console.log(res))
+// }
 
 // A $( document ).ready() block.
 $( document ).ready(function() {
@@ -13,6 +13,7 @@ $( document ).ready(function() {
 	listenForShowClick()
 	//listenForNewEventFormClick()
 	listenForSubmitNewForm()
+	listenForSubmitFormm()
 	//listenForNewEventForm2()
 	//listenForSubmitNewForm3()
 	
@@ -41,21 +42,22 @@ function getEvents() {
 				events.push(newEvent)
 				const newEventHtml = newEvent.eventHTML()
 				document.getElementById('ajax-events').innerHTML += newEventHtml
+				console.log(events)
 			})
 		})
 	}
 
-	function getEvent(){
-		$.ajax({
-			url:`http://localhost:3000/events/${id}`,
-			method: 'get',
-			dataType: 'json'
+	// function getEvent(){
+	// 	$.ajax({
+	// 		url:`http://localhost:3000/events/${id}`,
+	// 		method: 'get',
+	// 		dataType: 'json'
 		
-		}).done(function(data){
-			//just fine the event whose id matches
-			data.filter(id => id = params[id])
-		})
-	}
+	// 	}).done(function(data){
+	// 		//just fine the event whose id matches
+	// 		data.filter(id => id = params[id])
+	// 	})
+	// }
 
 
 	// function listenForNewEventFormClick() {
@@ -236,6 +238,7 @@ function listenForShowClick(){
 	});
 }
 
+
 function listenForSubmitNewForm(){
 newEventBody = document.getElementById('event-name')
 //newEventForm = document.getElementById('form#submit-event-form')
@@ -261,47 +264,6 @@ const value = this.newEventBody.value
 //console.log(newEvent)
 this.createEvent(value).then(event => {console.log(event)})
 }
-
-const baseUrl = 'http://localhost:3000/events'
-
-function createEventt(value){
-	console.log("blaaaa")
-	console.log(value)
-	const event = {
-		body: value,
-	}
-	return fetch(baseUrl, {
-	method: 'POST',
-	headers: {
-		"Content-Type": "application/json",
-	},
-	body: JSON.stringify({ event }),
-	}).then(res => res.json())
-}
-
-
-// let formData = {
-// 	name: name,
-// 	//dogBreed: "Poodle"
-//   };
-   
-//   let configObj = {
-// 	method: "POST",
-// 	headers: {
-// 	  "Content-Type": "application/json",
-// 	  "Accept": "application/json"
-// 	},
-// 	body: JSON.stringify(formData)
-//   };
-   
-//   fetch("http://localhost:3000/events", configObj)
-// 	.then(function(response) {
-// 	  return response.json();
-// 	})
-// 	.then(function(object) {
-// 	  console.log(object);
-// 	});
-
 
 	function createEvent( value ) {
 		console.log("jjjjjjj")
@@ -332,6 +294,46 @@ function createEventt(value){
 		//   } )
 	  }
 
+	// //let myForm = document.getElementById('submit-event-form');
+	// 	//let myForm = document.querySelector('form#submit-event-form')
+	// //document.querySelector('form#submit-event-form')
+	// var form = $('form#submit-event-form').get(0); 
+	// let formData = new FormData(form);
+	// formData.append('username', 'Chris');
+	// console.log(formData)
+	// console.log("formdataok")
+
+	function listenForClick() {
+		$('button#events-data').on('click', function (event) {
+			event.preventDefault()
+			getEvents()
+		})
+	}
+
+
+function listenForSubmitFormm(){
+	$("#new_event").on("submit", function(e){
+		e.preventDefault()
+		console.log("submitting post")
+		const valuess = $(this).serialize()
+
+		$.post("/events", valuess).done(function(data){
+			console.log(data)
+			$("#new-event-container").html("")
+			const newEvent = new Event(data)
+			const htmlToAdd = newEvent.eventHTML()
+			$("#new-event-container").html(htmlToAdd)
+		//	$("#new-event-container").html("add new stuff here")
+		})
+	})
+}
+
+// const newEvent = new Event(event)
+// events.push(newEvent)
+// const newEventHtml = newEvent.eventHTML()
+
+
+
 	// function listenForNewEventFormClick() {
 	// 	$('button#ajax-new-event').on('click', function (event) {
 	// 		event.preventDefault()
@@ -342,3 +344,46 @@ function createEventt(value){
 	// 		//handlePostRequest()
 	// 	})
 	// }
+
+
+
+	// const baseUrl = 'http://localhost:3000/events'
+
+// function createEventt(value){
+// 	console.log("blaaaa")
+// 	console.log(value)
+// 	const event = {
+// 		body: value,
+// 	}
+// 	return fetch(baseUrl, {
+// 	method: 'POST',
+// 	headers: {
+// 		"Content-Type": "application/json",
+// 	},
+// 	body: JSON.stringify({ event }),
+// 	}).then(res => res.json())
+// }
+
+
+
+// let formData = {
+// 	name: name,
+// 	//dogBreed: "Poodle"
+//   };
+   
+//   let configObj = {
+// 	method: "POST",
+// 	headers: {
+// 	  "Content-Type": "application/json",
+// 	  "Accept": "application/json"
+// 	},
+// 	body: JSON.stringify(formData)
+//   };
+   
+//   fetch("http://localhost:3000/events", configObj)
+// 	.then(function(response) {
+// 	  return response.json();
+// 	})
+// 	.then(function(object) {
+// 	  console.log(object);
+// 	});

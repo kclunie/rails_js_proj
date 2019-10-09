@@ -11,6 +11,8 @@ class EventsController < ApplicationController
             f.html {render :index}
             f.json {render json: @events}
         end
+        #render json: @events
+       # binding.pry
     end
 
     def new
@@ -20,10 +22,11 @@ class EventsController < ApplicationController
     def create
         @event = Event.new(event_params)
         if @event.save
-            respond_to do |f|
-				f.html {redirect_to events_path}
-				f.json {render json: @events}
-			end
+            render json: @event
+           # respond_to do |f|
+			#	f.html {redirect_to events_path}
+			#	f.json {render json: @events}
+			#end
          #redirect_to events_path
         else
          render :new
