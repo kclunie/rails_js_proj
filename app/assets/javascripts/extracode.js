@@ -267,4 +267,7 @@
     // </form>
 
     //LINK on event to see show page
-    //<a id='see-event' href="http://localhost:3000/events/${this.id}">See Event</a>
+	//<a id='see-event' href="http://localhost:3000/events/${this.id}">See Event</a>
+	
+	// Show rsvps listed out by number
+	//	<p>Attendees: ${eventAttends}</p> 

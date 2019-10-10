@@ -63,7 +63,7 @@ class Event {
 }
 
 Event.prototype.eventHTML = function () {
-	let attendsCount = this.attends.length * 2
+	let attendsCount = this.attends.length
 	let eventAttends = this.attends.map(rsvp => {
 		return (`
 			<p>${rsvp.guest}</p>
@@ -76,7 +76,6 @@ Event.prototype.eventHTML = function () {
             <p>${this.date}</p>
             <p>${this.location}</p>
 			<p>${this.details}</p>
-			<p>Attendees: ${eventAttends}</p>
 			<p>Attendees: ${attendsCount}</p>
 		</div>
 	`)
