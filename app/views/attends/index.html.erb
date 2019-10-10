@@ -3,8 +3,8 @@
 <br>
 <% @attends.each.with_index(1) do |f, index| %>
    
-    <%= "#{index}. Number of guests: + #{f.guest}" %>
-    <%= "added to #{f.event.name}" %>
+    <%= "#{index}. #{f.event.name} - Guest: + #{f.guest}" %>
+   
   <br>
     <% end %>
 
