@@ -3,6 +3,7 @@
 $( document ).ready(function() {
     console.log( "ready!" );
 	listenForClick()
+	listenForClickAlpha() 
 	listenForShowClick()
 	listenForSubmitForm()
 });
@@ -12,6 +13,43 @@ function listenForClick() {
 	$('button#events-data').on('click', function (event) {
 		event.preventDefault()
 		getEvents()
+	})
+}
+
+function listenForClickAlpha() {
+	$('button#events-alpha').on('click', function (event) {
+		event.preventDefault()
+		console.log(event)
+		getAlpha()
+	})
+}
+
+function getAlpha(){
+	$.ajax({
+		url: 'http://localhost:3000/events',
+		method: 'get',
+		dataType: 'json'
+	}).done(function (data){
+		
+		data.sort(function(a, b) {
+			var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+			var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+			if (nameA < nameB) {
+			  return -1;
+			}
+			if (nameA > nameB) {
+			  return 1;
+			}
+		  
+			// names must be equal
+			return 0;
+		  });
+		  console.log(data)
+		  data.map(event => {
+		  const newEvent = new Event(event)
+		  const newEventAlpha = newEvent.eventHTML()
+		  document.getElementById('alpha-events').innerHTML += newEventAlpha
+	})
 	})
 }
 
@@ -35,7 +73,7 @@ function getEvents() {
 	}
 
 
-	const events = []
+const events = []
 
 class Event {
 	constructor(obj) {
