@@ -9,7 +9,7 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 Rails.application.config.assets.paths << 'app/assets/javascripts/events.js'
-#I addede the above line
+#I addeded the above line
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
