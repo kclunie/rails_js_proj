@@ -4,6 +4,7 @@ $( document ).ready(function() {
     console.log( "ready!" );
 	listenForClick()
 	listenForClickAlpha() 
+	listenForClickLocation()
 	listenForShowClick()
 	listenForSubmitForm()
 });
@@ -21,6 +22,15 @@ function listenForClickAlpha() {
 		event.preventDefault()
 		console.log(event)
 		getAlpha()
+	})
+}
+
+function listenForClickLocation() {
+	$('button#events-location').on('click', function (event) {
+		event.preventDefault()
+		console.log(event)
+		window.alert("Locations being calculated");
+		getLocation()
 	})
 }
 
