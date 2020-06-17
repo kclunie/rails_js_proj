@@ -63,6 +63,34 @@ function getAlpha(){
 	})
 }
 
+function getLocation(){
+	$.ajax({
+		url: 'http://localhost:3000/events',
+		method: 'get',
+		dataType: 'json'
+	}).done(function (data){
+		
+		data.sort(function(a, b) {
+			var nameA = a.location.toUpperCase(); // ignore upper and lowercase
+			var nameB = b.location.toUpperCase(); // ignore upper and lowercase
+			if (nameA < nameB) {
+			  return -1;
+			}
+			if (nameA > nameB) {
+			  return 1;
+			}
+		  
+			// names must be equal
+			return 0;
+		  });
+		  console.log(data)
+		  data.map(event => {
+		  const newEvent = new Event(event)
+		  const newEventAlpha = newEvent.eventHTML()
+		  document.getElementById('alpha-location').innerHTML += newEventAlpha
+	})
+	})
+}
 
 function getEvents() {
 	$.ajax({
