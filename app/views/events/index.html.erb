@@ -6,12 +6,12 @@
 <% @events.each do |f| %>
     
     <div id="<%=f.id%>" >
-    <li><%= link_to "#{f.name}" " - Click for details!", event_path(f), class: "event-show-link" %></li>
+    <ol><%= link_to "#{f.name}" " - Click for details!", event_path(f), class: "event-show-link" %></ol>
     <li><%= f.date %></li>
     <li><%= f.location %></li>
-    <li><%= link_to "RSVPs", event_attends_path(f) %></li>
+    <li><%= link_to "RSVPs", event_attends_path(f) %><br></li>
     <li><%= link_to "Add an RSVP", new_event_attend_path(f) %></li>
-    <br>
+    <br><br>
     </div>
     <% end %>
     </div>
